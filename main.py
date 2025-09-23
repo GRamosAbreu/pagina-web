@@ -1,9 +1,12 @@
 from fastapi import FastAPI,HTTPException,status
+import flet as ft
+import flet.fastapi as flet_fastapi
+import httpx
 from pydantic import BaseModel
 from db import db_client
 from schema import user_schema, users_schema
 from bson import ObjectId
-app = FastAPI()
+app = FastAPI() 
 
 class User(BaseModel):
     username: str
@@ -54,6 +57,18 @@ def search_users(field: str, value):
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail={"mensaje":"No se ha encontrado el usuario"})
 
-        
+
+#############  FRONT END ######################
+
+async def main(page: ft.Page):
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://pagina-web-52ih.onrender.com/usuarios")
+        data = response.json()
+    
+    page.title = "Frontend con Flet integrado"
+    page.add(ft.Text(f"Mensaje del backend: {data['message']}"))
+
+# Montar Flet en FastAPI
+app.mount("/flet", flet_fastapi.app(main))
          
 
