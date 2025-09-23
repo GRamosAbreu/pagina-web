@@ -1,5 +1,6 @@
 fastapi
-pydantic
-bson
+python-jose
+passlib
 pymongo
+python-multipart
 uvicorn
