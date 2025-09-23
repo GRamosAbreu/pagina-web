@@ -2,3 +2,4 @@ fastapi
 pydantic
 bson
 pymongo
+uvicorn
