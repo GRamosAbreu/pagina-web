@@ -4,5 +4,5 @@ passlib
 pymongo
 python-multipart
 uvicorn
-flet
+flet>=0.21.0
 httpx
